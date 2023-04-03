@@ -6,6 +6,7 @@ from collections import Counter
 
 # Download dependency
 nltk.download('wordnet')
+nltk.download('punkt')
 # Define a function to check if a word is a noun
 def is_noun(word):
     synsets = wordnet.synsets(word)
