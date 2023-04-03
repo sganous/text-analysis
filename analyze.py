@@ -7,22 +7,19 @@ from collections import Counter
 # Download dependency
 nltk.download('wordnet')
 nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 # Define a function to check if a word is a noun
-def is_noun(word):
-    synsets = wordnet.synsets(word)
-    for synset in synsets:
-        if synset.pos() == 'n':
-            return True
-    return False
+def is_noun(tag):
+    return tag.startswith('N')
 
 # Input sentence
 sentence = input("Enter a sentence: ")
 # Tokenize the sentence into words
 words = word_tokenize(sentence)
-# Filter out non-alphabetic characters and convert all words to lowercase
-words = [word.lower() for word in words if word.isalpha()]
+# Tag the words with parts of speech
+tags = [tag for word, tag in nltk.pos_tag(words)]
 # Count the number of nouns in the sentence
-noun_count = sum([1 for word in words if is_noun(word)])
+noun_count = sum([1 for tag in tags if is_noun(tag)])
 # Calculate the average length of all words in the sentence
 avg_word_length = round(sum([len(word) for word in words]) / len(words), 2)
 
